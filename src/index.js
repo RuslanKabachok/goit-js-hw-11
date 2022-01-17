@@ -1,30 +1,37 @@
 import './sass/main.scss';
+import Api from './api';
 
 const refs = {
-  formEl: document.querySelector('form'),
-  inputEl: document.querySelector('input'),
-  listEl: document.querySelector('.gallery'),
+  form: document.querySelector('form'),
+  input: document.querySelector('input'),
+  list: document.querySelector('.gallery'),
+  loadMore: document.querySelector('[data-action="load-more"]'),
 };
 
-refs.formEl.addEventListener('submit', onFormSubmit);
+const api = new Api();
 
-function onFormSubmit(e) {
-  e.preventDefault();
-  const name = refs.inputEl.value;
+refs.form.addEventListener('submit', onFormSubmit);
+refs.loadMore.addEventListener('click', onLoadMore);
 
-  fetchImg(name)
+function onLoadMore() {
+  api
+    .fetchImg()
     .then(data => {
       return data.hits;
     })
     .then(renderCard);
 }
 
-function fetchImg(imgName) {
-  const URL = `https://pixabay.com/api/?key=25284059-64aa950e28f1ef43b7bf646a1&q=${imgName}&image_type=photo&orientation=horizontal&safesearch=true`;
+function onFormSubmit(e) {
+  e.preventDefault();
+  api.query = e.currentTarget.elements.searchQuery.value;
 
-  return fetch(URL).then(response => {
-    return response.json();
-  });
+  api
+    .fetchImg()
+    .then(data => {
+      return data.hits;
+    })
+    .then(renderCard);
 }
 
 function renderCard(data) {
@@ -50,5 +57,5 @@ function renderCard(data) {
     )
     .join('');
 
-  refs.listEl.innerHTML = markUp;
+  refs.list.innerHTML = markUp;
 }
