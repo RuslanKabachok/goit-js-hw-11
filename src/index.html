@@ -13,16 +13,23 @@
   </head>
 
   <body>
-    <header class="header">
-      <div class="wrapper header-container">
-        <form class="header-form">
-          <input class="header-input" placeholder="Search images..." />
-          <button class="btn">Search</button>
-        </form>
-      </div>
-    </header>
+    <div class="container">
+      <form class="search-form" id="search-form">
+        <input
+          type="text"
+          class="input"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </div>
 
-    <ul class="img-list"></ul>
+    <div class="gallery"></div>
+
+    <!-- <button type="button" class="load-more">Load more</button> -->
+
     <script src="./index.js"></script>
   </body>
 </html>
