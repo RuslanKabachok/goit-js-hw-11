@@ -1,5 +1,6 @@
 import './sass/main.scss';
 import Api from './api';
+import Notiflix from 'notiflix';
 
 const refs = {
   form: document.querySelector('form'),
@@ -17,21 +18,43 @@ function onLoadMore() {
   api
     .fetchImg()
     .then(data => {
-      return data.hits;
+      return data;
     })
-    .then(renderCard);
+    .then(data => {
+      if (data.hits.length === 0) {
+        Notiflix.Notify.warning('We are sorry, but you have reached the end of search results.');
+        hideLoadMoreBtn();
+        return;
+      } else {
+        renderCard(data.hits);
+        console.log(data.hits);
+      }
+    });
 }
+
+hideLoadMoreBtn();
 
 function onFormSubmit(e) {
   e.preventDefault();
   api.query = e.currentTarget.elements.searchQuery.value;
+  api.resetPage();
+
+  clearGallery();
+  showLoadMoreBtn();
 
   api
     .fetchImg()
     .then(data => {
       return data.hits;
     })
-    .then(renderCard);
+    .then(array => {
+      if (array.length === 0) {
+        Notiflix.Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.',
+        );
+      }
+      renderCard(array);
+    });
 }
 
 function renderCard(data) {
@@ -57,5 +80,17 @@ function renderCard(data) {
     )
     .join('');
 
-  refs.list.innerHTML = markUp;
+  refs.list.insertAdjacentHTML('beforeend', markUp);
+}
+
+function clearGallery() {
+  refs.list.innerHTML = '';
+}
+
+function showLoadMoreBtn() {
+  refs.loadMore.classList.remove('is-hiden');
+}
+
+function hideLoadMoreBtn() {
+  refs.loadMore.classList.add('is-hiden');
 }

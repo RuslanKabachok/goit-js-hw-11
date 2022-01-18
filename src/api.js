@@ -13,6 +13,10 @@ export default class Api {
     });
   }
 
+  resetPage() {
+    this.page = 1;
+  }
+
   get query() {
     return this.searchQuery;
   }
