@@ -58,6 +58,11 @@ function onFormSubmit(e) {
           );
           hideLoadMoreBtn();
           return;
+        } else if (array.hits.length < 40) {
+          window.addEventListener('scroll', handleScroll);
+
+          renderCard(array.hits);
+          hideLoadMoreBtn();
         } else {
           renderCard(array.hits);
           showLoadMoreBtn();
@@ -108,8 +113,7 @@ function hideLoadMoreBtn() {
 function handleScroll() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  if (scrollTop + clientHeight >= scrollHeight - 5) {
-    console.log('jdvblibe');
+  if (scrollTop + clientHeight >= scrollHeight) {
     Notiflix.Notify.warning('We are sorry, but you have reached the end of search results.');
   }
 }
