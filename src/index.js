@@ -63,10 +63,12 @@ function onFormSubmit(e) {
 
           renderCard(array.hits);
           hideLoadMoreBtn();
+          // scrollDown();
         } else {
           renderCard(array.hits);
           showLoadMoreBtn();
           Notiflix.Notify.success(`Hooray, we found ${array.totalHits} images!`);
+          // scrollDown();
         }
       });
   }
@@ -117,3 +119,12 @@ function handleScroll() {
     Notiflix.Notify.warning('We are sorry, but you have reached the end of search results.');
   }
 }
+
+// function scrollDown() {
+//   const y = document.documentElement.scrollHeight;
+
+//   window.scrollBy({
+//     top: y,
+//     behavior: 'smooth',
+//   });
+// }
