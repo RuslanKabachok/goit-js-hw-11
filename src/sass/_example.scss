@@ -50,19 +50,18 @@
 .photo-card {
   display: flex;
   flex-direction: column;
-  // border: red 1px solid;
   border-radius: 5px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  // box-shadow: 0 1px 4px rgba(0, 0, 0, 1), -23px 0 20px -23px rgba(0, 0, 0, 0.8),
-  //   23px 0 20px -23px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   width: 350px;
   height: 320px;
   object-fit: cover;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .info {
   display: flex;
+  padding-left: 14px;
 }
 
 .info-item {

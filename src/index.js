@@ -1,6 +1,8 @@
 import './sass/main.scss';
 import Api from './api';
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = {
   form: document.querySelector('form'),
@@ -78,22 +80,33 @@ function renderCard(data) {
   const markUp = data
     .map(
       img => `<div class="photo-card">
-  <img src="${img.webformatURL}" alt="${img.tags}" loading="lazy" width: 100px height: 70px/>
-  <div class="info">
-    <p class="info-item">
-      <b>Likes ${img.likes}</b>
-    </p>
-    <p class="info-item">
-      <b>Views ${img.views}</b>
-    </p>
-    <p class="info-item">
-      <b>Comments ${img.comments}</b>
-    </p>
-    <p class="info-item">
-      <b>Downloads ${img.downloads}</b>
-    </p>
-  </div>
-</div>`,
+        <div>
+          <a href="${img.largeImageURL}">
+            <img
+              src="${img.webformatURL}"
+              alt="${img.tags}"
+              loading="lazy"
+              width="400px"
+              height="250px"
+            />
+          </a>
+        </div>
+
+        <div class="info">
+          <p class="info-item">
+            <b>Likes ${img.likes}</b>
+          </p>
+          <p class="info-item">
+            <b>Views ${img.views}</b>
+          </p>
+          <p class="info-item">
+            <b>Comments ${img.comments}</b>
+          </p>
+          <p class="info-item">
+            <b>Downloads ${img.downloads}</b>
+          </p>
+        </div>
+      </div>`,
     )
     .join('');
 
@@ -128,3 +141,10 @@ function handleScroll() {
 //     behavior: 'smooth',
 //   });
 // }
+
+new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  enableKeyboard: true,
+  loop: true,
+});
