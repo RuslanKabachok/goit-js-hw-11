@@ -39,12 +39,12 @@ function onLoadMore() {
         gallery.refresh();
 
         hideLoadMoreBtn();
-        scrollDown();
+        // scrollDown();
         return;
       } else {
         renderCard(data.hits);
         gallery.refresh();
-        scrollDown();
+        // scrollDown();
       }
     });
 }
