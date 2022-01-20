@@ -30,10 +30,14 @@
 }
 
 .load-more {
-  height: 35px;
-  width: 110px;
-  border-radius: 3px;
+  height: 40px;
+  width: 120px;
+  border-radius: 5px;
+  border-color: rgb(98, 17, 192);
   margin: 0 auto;
+  background-color: rgb(98, 17, 192);
+  color: white;
+  margin-bottom: 15px;
 }
 
 .wrapper {
@@ -70,4 +74,8 @@
 
 .is-hiden {
   display: none;
+}
+
+.img-wrapper {
+  object-fit: cover;
 }

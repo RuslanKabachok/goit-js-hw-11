@@ -13,6 +13,13 @@ const refs = {
 
 const api = new Api();
 
+const gallery = new SimpleLightbox('.img-wrapper a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  enableKeyboard: true,
+  loop: true,
+});
+
 refs.form.addEventListener('submit', onFormSubmit);
 refs.loadMore.addEventListener('click', onLoadMore);
 
@@ -29,10 +36,15 @@ function onLoadMore() {
         window.addEventListener('scroll', handleScroll);
 
         renderCard(data.hits);
+        gallery.refresh();
+
         hideLoadMoreBtn();
+        scrollDown();
         return;
       } else {
         renderCard(data.hits);
+        gallery.refresh();
+        scrollDown();
       }
     });
 }
@@ -64,13 +76,13 @@ function onFormSubmit(e) {
           window.addEventListener('scroll', handleScroll);
 
           renderCard(array.hits);
+          gallery.refresh();
           hideLoadMoreBtn();
-          // scrollDown();
         } else {
           renderCard(array.hits);
           showLoadMoreBtn();
           Notiflix.Notify.success(`Hooray, we found ${array.totalHits} images!`);
-          // scrollDown();
+          gallery.refresh();
         }
       });
   }
@@ -80,7 +92,7 @@ function renderCard(data) {
   const markUp = data
     .map(
       img => `<div class="photo-card">
-        <div>
+        <div class="img-wrapper">
           <a href="${img.largeImageURL}">
             <img
               src="${img.webformatURL}"
@@ -133,18 +145,11 @@ function handleScroll() {
   }
 }
 
-// function scrollDown() {
-//   const y = document.documentElement.scrollHeight;
+function scrollDown() {
+  const y = document.documentElement.scrollHeight;
 
-//   window.scrollBy({
-//     top: y,
-//     behavior: 'smooth',
-//   });
-// }
-
-new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-  enableKeyboard: true,
-  loop: true,
-});
+  window.scrollBy({
+    top: y,
+    behavior: 'smooth',
+  });
+}
