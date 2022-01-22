@@ -39,12 +39,12 @@ function onLoadMore() {
         gallery.refresh();
 
         hideLoadMoreBtn();
-        // scrollDown();
+        scrollDown();
         return;
       } else {
         renderCard(data.hits);
         gallery.refresh();
-        // scrollDown();
+        scrollDown();
       }
     });
 }
@@ -146,10 +146,12 @@ function handleScroll() {
 }
 
 function scrollDown() {
-  const y = document.documentElement.scrollHeight;
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: y,
+    top: cardHeight * 2,
     behavior: 'smooth',
   });
 }
